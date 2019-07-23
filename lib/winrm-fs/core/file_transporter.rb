@@ -94,6 +94,7 @@ module WinRM
 
           elapsed2 = Benchmark.measure do
             report = stream_upload_files(files) do |local_path, xfered|
+              # require 'pry'; binding.pry if ENV['KRB_DEBUGGING'] == 'true'
               yield xfered, total_size, local_path, remote if block_given?
             end
             merge_with_report!(files, report)

@@ -138,7 +138,10 @@ module WinRM
         @connection.shell(:powershell) do |shell|
           file_transporter ||= WinRM::FS::Core::FileTransporter.new(shell)
           file_transporter.upload(local_path, remote_path, &block)[0]
+          require 'pry'; binding.pry if ENV['KRB_DEBUGGING'] == 'true'
         end
+        # TODO: this line is never reached - looks like the shell teardown is the problem?
+        require 'pry'; binding.pry if ENV['KRB_DEBUGGING'] == 'true'
       end
 
       private
